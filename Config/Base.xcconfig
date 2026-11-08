@@ -1,0 +1,7 @@
+// Shared build settings. Put your Team ID into Config/Local.xcconfig (not committed):
+//   APP_TEAM_ID = ABCDE12345
+APP_BUNDLE_ID = tech.rmillerqa.expensetracker
+APP_TEAM_ID =
+// "//" starts a comment in xcconfig, so the slashes are split with $().
+API_BASE_URL = https:/$()/rmillerqa.tech/expense-tracker/api
+#include? "Local.xcconfig"

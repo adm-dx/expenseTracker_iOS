@@ -1,0 +1,75 @@
+name: ExpenseTracker
+options:
+  deploymentTarget:
+    iOS: "18.0"
+  developmentLanguage: ru
+configFiles:
+  Debug: Config/Debug.xcconfig
+  Release: Config/Release.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    DEVELOPMENT_TEAM: $(APP_TEAM_ID)
+    CODE_SIGN_STYLE: Automatic
+targets:
+  ExpenseTracker:
+    type: application
+    platform: iOS
+    sources:
+      - ExpenseTracker
+    info:
+      path: ExpenseTracker/Info.plist
+      properties:
+        CFBundleDisplayName: Расходы
+        CFBundleDevelopmentRegion: ru
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        API_BASE_URL: $(API_BASE_URL)
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(APP_BUNDLE_ID)
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        SWIFT_EMIT_LOC_STRINGS: YES
+  ExpenseTrackerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - ExpenseTrackerTests
+    dependencies:
+      - target: ExpenseTracker
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: $(APP_BUNDLE_ID).tests
+  ExpenseTrackerUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - ExpenseTrackerUITests
+    dependencies:
+      - target: ExpenseTracker
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: $(APP_BUNDLE_ID).uitests
+        SWIFT_DEFAULT_ACTOR_ISOLATION: nonisolated
+schemes:
+  ExpenseTracker:
+    build:
+      targets:
+        ExpenseTracker: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ExpenseTrackerTests
+        - ExpenseTrackerUITests
